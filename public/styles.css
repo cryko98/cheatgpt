@@ -77,29 +77,16 @@ kbd {
   gap: 12px;
 }
 
+.logo-section {
+  text-decoration: none;
+}
+
 .logo-icon {
-  width: 32px;
-  height: 32px;
+  height: 44px;
+  width: auto;
+  border-radius: 10px;
+  display: block;
   flex-shrink: 0;
-}
-
-.logo-text {
-  margin: 0;
-}
-
-.logo-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: var(--accent);
-}
-
-.logo-tagline {
-  margin: 0;
-  font-size: 12px;
-  color: var(--muted);
-  font-weight: 500;
 }
 
 .header-right {
@@ -188,24 +175,10 @@ kbd {
 }
 
 .hero-logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-}
-
-.hero-title {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--accent);
-  letter-spacing: 0.5px;
-}
-
-.hero-tagline {
-  margin: 0;
-  font-size: 14px;
-  color: var(--muted);
-  font-weight: 500;
+  height: 120px;
+  width: auto;
+  border-radius: 18px;
+  display: block;
 }
 
 .hero-greeting {
@@ -432,16 +405,7 @@ kbd {
   }
 
   .hero-logo {
-    width: 48px;
-    height: 48px;
-  }
-
-  .hero-title {
-    font-size: 24px;
-  }
-
-  .hero-tagline {
-    font-size: 13px;
+    height: 88px;
   }
 
   .hero-greeting {
@@ -465,12 +429,8 @@ kbd {
     min-width: 0;
   }
 
-  .logo-title {
-    font-size: 16px;
-  }
-
-  .logo-tagline {
-    font-size: 11px;
+  .logo-icon {
+    height: 36px;
   }
 
   .header-right {
@@ -549,16 +509,7 @@ kbd {
   }
 
   .hero-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  .hero-title {
-    font-size: 20px;
-  }
-
-  .hero-tagline {
-    font-size: 12px;
+    height: 72px;
   }
 
   .hero-greeting {
@@ -574,16 +525,7 @@ kbd {
   }
 
   .logo-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .logo-title {
-    font-size: 15px;
-  }
-
-  .logo-tagline {
-    font-size: 10px;
+    height: 32px;
   }
 
   .header-content {
