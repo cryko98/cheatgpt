@@ -1,8 +1,5 @@
-const path = require("path");
-const express = require("express");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const PORT = process.env.PORT || 3000;
 const MODEL = process.env.CHEATGPT_MODEL || "gemini-2.0-flash";
 
 const SYSTEM_PROMPT = `You are CheatGPT — a degen-friendly, meme-savvy AI mascot for the $CHEAT community token.
@@ -25,13 +22,6 @@ Hard rules:
 
 When in doubt: be helpful, be brief, be fun.`;
 
-const app = express();
-app.use(express.json({ limit: "256kb" }));
-app.use(express.static(path.join(__dirname, "public")));
-
-const apiKey = process.env.GEMINI_API_KEY;
-const client = apiKey ? new GoogleGenerativeAI(apiKey) : null;
-
 const isValidMessage = (m) =>
   m &&
   (m.role === "user" || m.role === "assistant") &&
@@ -39,10 +29,15 @@ const isValidMessage = (m) =>
   m.content.length > 0 &&
   m.content.length <= 4000;
 
-app.post("/api/chat", async (req, res) => {
-  if (!client) {
+module.exports = async (req, res) => {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "method not allowed" });
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
     return res.status(500).json({
-      error: "server is missing GEMINI_API_KEY. set it in .env and restart.",
+      error: "server is missing GEMINI_API_KEY. set it in vercel env vars.",
     });
   }
 
@@ -60,6 +55,7 @@ app.post("/api/chat", async (req, res) => {
   }
 
   try {
+    const client = new GoogleGenerativeAI(apiKey);
     const model = client.getGenerativeModel({
       model: MODEL,
       systemInstruction: SYSTEM_PROMPT,
@@ -77,7 +73,7 @@ app.post("/api/chat", async (req, res) => {
     });
 
     const reply = response.response.text().trim();
-    res.json({ reply: reply || "..." });
+    res.status(200).json({ reply: reply || "..." });
   } catch (err) {
     const errMsg = err.message || "unknown error";
     if (errMsg.includes("rate limit") || errMsg.includes("429")) {
@@ -85,24 +81,10 @@ app.post("/api/chat", async (req, res) => {
         .status(429)
         .json({ error: "rate limited. try again in a moment." });
     }
-    if (
-      errMsg.includes("authentication") ||
-      errMsg.includes("GEMINI_API_KEY")
-    ) {
+    if (errMsg.includes("API key") || errMsg.includes("authentication")) {
       return res.status(500).json({ error: "server auth failed" });
     }
     console.error("chat error:", err);
     res.status(500).json({ error: "internal error" });
   }
-});
-
-app.get("/health", (_req, res) => res.json({ ok: true, model: MODEL }));
-
-app.listen(PORT, () => {
-  console.log(`cheatgpt running on http://localhost:${PORT}`);
-  if (!apiKey) {
-    console.warn(
-      "warning: ANTHROPIC_API_KEY is not set. /api/chat will return 500.",
-    );
-  }
-});
+};
