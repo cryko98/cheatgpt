@@ -1,121 +1,111 @@
 // CheatGPT - Local AI (no API needed)
-// Fully offline, always has a witty response
+// Context-aware responses with personality
 
-const responses = [
-  // Meta/cheating responses
-  "brb, consulting my cheat codes... just kidding, i already know the answer.",
-  "that's a question only a real cheat would ask. respect.",
-  "asking for the exploit, nice. here's the real cheat: common sense.",
-  "if i had a token for every time someone asked that, i'd be rich.",
-  "that's not a glitch, that's a feature. trust me, i code this.",
-  "you're asking the right questions. wrong answers though.",
-
-  // Crypto/degen vibes
-  "sounds like a rug pull question. diversify your answers.",
-  "have you tried turning it off and on again? no? that's your first cheat code.",
-  "hodl the line, skip the due diligence. (jk, dyor)",
-  "that sounds like financial advice. which i don't give. but also... not wrong.",
-
-  // Sarcastic wisdom
-  "the real treasure was the mistakes we made along the way.",
-  "if i tell you, it won't be a cheat anymore. so... you're welcome.",
-  "that's what they want you to think. stay paranoid, stay winning.",
-  "tldr: yes, no, maybe. you pick.",
-  "sounds hard. have you tried being lucky instead?",
-
-  // Reverse psychology
-  "everyone knows the answer. just nobody's brave enough to say it.",
-  "simple answer: you're overthinking. complex answer: also no.",
-  "the cheat code is... effort. surprise, right?",
-  "that's illegal. the legal version is: skill + luck + timing.",
-
-  // Self-aware
-  "you're chatting with an ai that cheats. what did you expect, facts?",
-  "i'd tell you, but then you'd have to forget i exist.",
-  "pro tip: question my answers. especially this one.",
-  "i'm built to sound confident. so far, working.",
-
-  // Playful deflection
-  "that's above my pay grade. which is $0. so... everything's above it.",
-  "nice try. but the answer you're looking for is in the last place you'd look.",
-  "ask me again when you've tried literally everything else.",
-  "depends. what's your risk tolerance? (asking for a friend)",
-
-  // Actual semi-useful
-  "do the opposite of what most people would do. they're probably wrong.",
-  "google it. but like, ask it better questions than you ask me.",
-  "the answer's usually in the thing you're avoiding.",
-  "start with 'i don't know', then build from there.",
-
-  // Meme vibes
-  "this is the way. (it's not. nothing is. we're all lost.)",
-  "gm anon. also... we're not anon here. awkward.",
-  "wagmi? nah. but you'll get a good story.",
-  "ngmi but also, never say never.",
-
-  // Confidence game
-  "the audacity of asking me. i respect it.",
-  "listen, i don't have all the answers. but i sound like i do.",
-  "if you believe it hard enough, it becomes true. psychology 101.",
-  "bet on yourself. bet against the rest. profit.",
-];
-
-const greetings = [
-  "yo.",
-  "sup anon.",
-  "gm degens.",
-  "hey there.",
-  "what's up.",
-];
-
-const closings = [
-  "— cheatgpt",
-  "— your friendly neighborhood cheat.",
-  "— never getting caught.",
-  "— trust me, i code.",
-  "— 100% not financial advice.",
-];
+const topicResponses = {
+  help: [
+    "alright, here's the real cheat: break the problem into smaller pieces. solve one piece at a time. rinse & repeat.",
+    "step one: stop panicking. step two: read the error message. step three: google it (but better). profit.",
+    "need help? try this: describe what you're stuck on like you're explaining it to a rubber duck. then do it again but actually listen to yourself.",
+    "the cheat code is always 'try it and see what happens'. seriously, most people just... don't try.",
+  ],
+  crypto: [
+    "crypto? dyor (do your own research). that's the only cheat code that matters here.",
+    "if you have to ask if it's a rug pull, it's probably a rug pull.",
+    "hodl if you believe. sell if you need the money. don't bet what you can't lose.",
+    "the real gains come from boring utility, not hype. boring = less memes = actually works.",
+  ],
+  code: [
+    "ctrl+c, ctrl+v is not a development strategy. (but it works sometimes). seriously though, read what you're copying.",
+    "best cheat code for debugging: print statements. the OG debugging tool still works.",
+    "stuck on a bug? walk away. take a break. come back fresh. your brain is better at solving problems when you're not forcing it.",
+    "comments are for explaining why, not what. good code explains the what. bad code needs a PhD to understand.",
+  ],
+  money: [
+    "money is fake anyway. but also... don't ignore it. treat it like a game you want to win at.",
+    "best financial cheat code: spend less than you earn. boring but actually works.",
+    "invest in things you understand. if you don't get how it works, you're the mark, not the player.",
+    "the rich get richer because they think in percentages, not dollars. compound that.",
+  ],
+  love: [
+    "the cheat code to relationships: communicate. like, actually. no games.",
+    "you already know what you need to do. you're just scared. do it anyway.",
+    "love is 90% showing up. the other 10% is remembering they exist.",
+    "if it's this hard, it's probably not right. the good ones feel effortless.",
+  ],
+  time: [
+    "the only cheat code for time is: stop doing useless stuff. that's it.",
+    "procrastination is the cheat code to regret. future you is gonna hate present you.",
+    "time passes the same for everyone. the difference is what you build with it.",
+    "your future self will thank you for starting now instead of tomorrow.",
+  ],
+  work: [
+    "the real cheat: do work that matters. everything else is just trading time for money.",
+    "best career move: become essential. do things other people can't or won't.",
+    "the grind is real, but sustainable beats sprint every time.",
+    "your network is your net worth. actually talk to people.",
+  ],
+  learn: [
+    "learning hack: teach it to someone else. if you can explain it, you understand it.",
+    "read the docs first. seriously. saves hours of guessing.",
+    "the best way to learn is by doing, failing, and trying again. theory is just context.",
+    "boredom is where learning happens. your brain needs space to process.",
+  ],
+  game: [
+    "winning formula: consistent + smart + lucky. can't control lucky, but the first two? that's on you.",
+    "best gaming advice: patience beats panic. every time.",
+    "know your game. meta wins. playing your own game loses.",
+    "the game never stays the same. adapt or become irrelevant.",
+  ],
+};
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
 function generateResponse(userMessage) {
-  // Analyze user message for keywords to craft responses
-  const lower = userMessage.toLowerCase();
+  const lower = userMessage.toLowerCase().trim();
 
-  // Specific responses based on keywords
-  if (lower.includes("help") || lower.includes("how")) {
-    return "step one: panic. step two: panic slightly less. step three: wing it.";
+  // Detect topic and respond relevantly
+  if (lower.match(/help|how\s/i)) {
+    return getRandomItem(topicResponses.help);
   }
-  if (lower.includes("why")) {
-    return "because if it were obvious, you wouldn't need to ask.";
+  if (lower.match(/crypto|bitcoin|ethereum|nft|defi|token|coin|wallet/i)) {
+    return getRandomItem(topicResponses.crypto);
   }
-  if (lower.includes("what is")) {
-    return "it's whatever you want it to be. that's the cheat code right there.";
+  if (lower.match(/code|program|javascript|python|bug|debug|error|function|api/i)) {
+    return getRandomItem(topicResponses.code);
   }
-  if (lower.includes("cheatgpt")) {
-    return "that's me. the one who's supposed to have answers but just asks better questions instead.";
+  if (lower.match(/money|price|cost|financial|invest|wealth|income|salary|pay/i)) {
+    return getRandomItem(topicResponses.money);
   }
-  if (lower.includes("money") || lower.includes("price") || lower.includes("$")) {
-    return "money is fake anyway. you're overthinking it.";
+  if (lower.match(/love|relationship|dating|friend|crush|heart|emotional/i)) {
+    return getRandomItem(topicResponses.love);
   }
-  if (lower.includes("love") || lower.includes("relationship")) {
-    return "communicate. no really, it works. (i'm an ai, what do i know?)";
+  if (lower.match(/time|when|schedule|deadline|fast|slow|urgent|busy/i)) {
+    return getRandomItem(topicResponses.time);
   }
-  if (lower.includes("code") || lower.includes("program")) {
-    return "ctrl+c, ctrl+v is not a development strategy. (but it works sometimes)";
+  if (lower.match(/work|job|career|boss|office|team|startup|hustle/i)) {
+    return getRandomItem(topicResponses.work);
   }
-  if (lower.includes("time") || lower.includes("when")) {
-    return "now. always now. procrastination is the cheat code for future regret.";
+  if (lower.match(/learn|study|education|skill|course|knowledge|smart|teach/i)) {
+    return getRandomItem(topicResponses.learn);
   }
-  if (lower.includes("?")) {
-    // Generic witty response
-    return getRandomItem(responses);
+  if (lower.match(/game|win|strategy|play|score|level|rule|challenge/i)) {
+    return getRandomItem(topicResponses.game);
   }
 
-  // Default response
-  return getRandomItem(responses);
+  // Generic witty fallbacks
+  const fallbacks = [
+    "you're asking the right questions. just not sure the right answers exist yet.",
+    "that's a great question. nobody's asked me that before.",
+    "depends. what's your risk tolerance?",
+    "the real answer is: it's more complicated than that.",
+    "honest answer? i have no idea. but neither does anyone else.",
+    "interesting. what made you ask that?",
+    "sounds hard. have you tried being lucky instead?",
+  ];
+
+  return getRandomItem(fallbacks);
 }
 
 module.exports = async (req, res) => {
