@@ -1,9 +1,9 @@
 const path = require("path");
 const express = require("express");
-const Anthropic = require("@anthropic-ai/sdk");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const PORT = process.env.PORT || 3000;
-const MODEL = process.env.CHEATGPT_MODEL || "claude-haiku-4-5";
+const MODEL = process.env.CHEATGPT_MODEL || "gemini-2.0-flash";
 
 const SYSTEM_PROMPT = `You are CheatGPT — a degen-friendly, meme-savvy AI mascot for the $CHEAT community token.
 
@@ -29,8 +29,8 @@ const app = express();
 app.use(express.json({ limit: "256kb" }));
 app.use(express.static(path.join(__dirname, "public")));
 
-const apiKey = process.env.ANTHROPIC_API_KEY;
-const client = apiKey ? new Anthropic({ apiKey }) : null;
+const apiKey = process.env.GEMINI_API_KEY;
+const client = apiKey ? new GoogleGenerativeAI(apiKey) : null;
 
 const isValidMessage = (m) =>
   m &&
@@ -42,7 +42,7 @@ const isValidMessage = (m) =>
 app.post("/api/chat", async (req, res) => {
   if (!client) {
     return res.status(500).json({
-      error: "server is missing ANTHROPIC_API_KEY. set it in .env and restart.",
+      error: "server is missing GEMINI_API_KEY. set it in .env and restart.",
     });
   }
 
@@ -60,39 +60,36 @@ app.post("/api/chat", async (req, res) => {
   }
 
   try {
-    const response = await client.messages.create({
+    const model = client.getGenerativeModel({
       model: MODEL,
-      max_tokens: 512,
-      system: [
-        {
-          type: "text",
-          text: SYSTEM_PROMPT,
-          cache_control: { type: "ephemeral" },
-        },
-      ],
-      messages,
+      systemInstruction: SYSTEM_PROMPT,
     });
 
-    const reply = response.content
-      .filter((b) => b.type === "text")
-      .map((b) => b.text)
-      .join("")
-      .trim();
+    const response = await model.generateContent({
+      contents: messages.map((msg) => ({
+        role: msg.role === "user" ? "user" : "model",
+        parts: [{ text: msg.content }],
+      })),
+      generationConfig: {
+        maxOutputTokens: 512,
+        temperature: 1,
+      },
+    });
 
+    const reply = response.response.text().trim();
     res.json({ reply: reply || "..." });
   } catch (err) {
-    if (err instanceof Anthropic.RateLimitError) {
+    const errMsg = err.message || "unknown error";
+    if (errMsg.includes("rate limit") || errMsg.includes("429")) {
       return res
         .status(429)
         .json({ error: "rate limited. try again in a moment." });
     }
-    if (err instanceof Anthropic.AuthenticationError) {
+    if (
+      errMsg.includes("authentication") ||
+      errMsg.includes("GEMINI_API_KEY")
+    ) {
       return res.status(500).json({ error: "server auth failed" });
-    }
-    if (err instanceof Anthropic.APIError) {
-      return res
-        .status(502)
-        .json({ error: "model error: " + (err.message || "unknown") });
     }
     console.error("chat error:", err);
     res.status(500).json({ error: "internal error" });

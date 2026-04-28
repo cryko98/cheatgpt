@@ -2,7 +2,7 @@
 
 Landing page + chat for the **$CHEAT** community token. Inspired by the
 chetgpt.fun aesthetic, built from scratch with an original UI and a working
-chat backed by the Anthropic API.
+chat backed by the Google Gemini API.
 
 - Static landing page (`public/`) — hero, CA copy widget, tokenomics, how-to-buy
 - Express backend (`server.js`) — `POST /api/chat` proxies to the Claude API
@@ -21,7 +21,7 @@ These are intentionally left as `xxxxxxxxxxxxxxxxxxxxxxxx` and `@xxxxxxx`:
 
 ```bash
 cp .env.example .env
-# edit .env and set ANTHROPIC_API_KEY
+# edit .env and set GEMINI_API_KEY (free from Google AI Studio)
 npm install
 npm start
 ```
@@ -32,9 +32,9 @@ Then open <http://localhost:3000>.
 
 | Env var               | Default            | Purpose                      |
 | --------------------- | ------------------ | ---------------------------- |
-| `ANTHROPIC_API_KEY`   | _required_         | Claude API key               |
+| `GEMINI_API_KEY`      | _required_         | Google Gemini API key        |
 | `PORT`                | `3000`             | HTTP port                    |
-| `CHEATGPT_MODEL`      | `claude-haiku-4-5` | Model used for chat replies  |
+| `CHEATGPT_MODEL`      | `gemini-2.0-flash` | Model used for chat replies  |
 
 ## API
 
@@ -62,5 +62,5 @@ caching on the system prompt so repeat traffic is cheap.
 ## Tech
 
 - `express` for the HTTP layer
-- `@anthropic-ai/sdk` for the Claude call
+- `@google/generative-ai` for the Gemini API call
 - Vanilla HTML/CSS/JS on the front end (no build step)
