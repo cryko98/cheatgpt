@@ -2,193 +2,96 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#00d4aa" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CheatGPT" />
     <title>CheatGPT — the AI that bends the rules</title>
     <meta
       name="description"
-      content="CheatGPT is the unfiltered, degen-friendly AI. Ask anything, get an answer. Powered by the CheatGPT model."
+      content="CheatGPT is the unfiltered, degen-friendly AI. Ask anything, get an answer."
     />
-    <link rel="icon" href="peeep.png" />
+    <link rel="icon" href="/peeep.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/peeep.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="bg-grid" aria-hidden="true"></div>
-    <div class="bg-glow" aria-hidden="true"></div>
-
-    <header class="nav">
-      <a href="#top" class="brand" aria-label="CheatGPT home">
-        <span class="brand-mark">🃏</span>
-        <span class="brand-name">cheat<span class="accent">GPT</span></span>
-      </a>
-      <nav class="nav-links">
-        <a href="#chat">Chat</a>
-        <a href="#about">About</a>
-        <a href="#tokenomics">Tokenomics</a>
-        <a href="#how">How to buy</a>
-      </nav>
-      <a class="btn btn-ghost" href="https://x.com/xxxxxxx" target="_blank" rel="noopener">
-        <span>Follow @xxxxxxx</span>
-      </a>
-    </header>
-
-    <main id="top">
-      <section class="hero">
-        <div class="hero-inner">
-          <span class="pill">live · CA below</span>
-          <h1 class="title">
-            The AI that <span class="gradient">cheats</span> the system.
-          </h1>
-          <p class="subtitle">
-            CheatGPT is the unfiltered AI for degens, traders and shitposters.
-            Ask anything. Get answers the other models won't give you.
-          </p>
-
-          <div class="ca-card" role="group" aria-label="Contract address">
-            <div class="ca-label">Contract Address</div>
-            <div class="ca-row">
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <a href="#" class="logo-section" aria-label="CheatGPT">
+            <img src="/peeep.png" alt="CheatGPT" class="logo-icon" />
+            <span class="status-pill">
+              <span class="dot-pulse"></span> Online &amp; Confidently <span class="word-wrong">Wrong</span>
+            </span>
+          </a>
+          <div class="header-right">
+            <a href="#" class="ca-button" title="Copy CA">
+              <span class="ca-label">CA:</span>
               <code id="ca" class="ca-value">xxxxxxxxxxxxxxxxxxxxxxxx</code>
-              <button id="copyCa" class="btn btn-primary" type="button">
-                Copy CA
-              </button>
-            </div>
-            <div class="ca-meta">
-              <span>Ticker: <strong>$CHEAT</strong></span>
-              <span class="dot">•</span>
-              <span>Twitter: <a href="https://x.com/xxxxxxx" target="_blank" rel="noopener">@xxxxxxx</a></span>
-            </div>
-          </div>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#chat">Try the chat</a>
-            <a class="btn btn-ghost" href="#how">How to buy</a>
+              <button id="copyCa" class="copy-btn" type="button">📋</button>
+            </a>
+            <a href="https://x.com/CheatGPTapp" target="_blank" rel="noopener" class="x-link" aria-label="Follow CheatGPT on X">
+              𝕏
+            </a>
           </div>
         </div>
+      </header>
 
-        <div class="hero-card" aria-hidden="true">
-          <div class="terminal">
-            <div class="term-bar">
-              <span class="dot red"></span>
-              <span class="dot yel"></span>
-              <span class="dot grn"></span>
-              <span class="term-title">cheatgpt — terminal</span>
-            </div>
-            <pre class="term-body"><span class="prompt">user&gt;</span> what's the alpha today?
-<span class="reply">cheatgpt&gt;</span> the alpha is: read the chart, not the chat.
-<span class="prompt">user&gt;</span> give me one cheat code for life
-<span class="reply">cheatgpt&gt;</span> compound interest. on money, on skills, on friends.
-<span class="prompt">user&gt;</span> _<span class="caret">▍</span></pre>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-logo-wrap">
+            <img src="/peeep.png" alt="CheatGPT" class="hero-logo" />
           </div>
-        </div>
-      </section>
-
-      <section id="chat" class="chat-section">
-        <div class="section-head">
-          <h2>Chat with <span class="accent">CheatGPT</span></h2>
-          <p>The model is live. No login. No filters on vibes.</p>
-        </div>
-
-        <div class="chat-shell">
-          <div id="messages" class="messages" aria-live="polite">
-            <div class="msg msg-bot">
-              <div class="avatar">🃏</div>
-              <div class="bubble">
-                yo. i'm cheatgpt. ask me anything — markets, memes, life cheats, code.
-              </div>
-            </div>
-          </div>
-
-          <form id="chatForm" class="composer" autocomplete="off">
-            <input
-              id="chatInput"
-              name="message"
-              type="text"
-              placeholder="ask cheatgpt anything…"
-              maxlength="1000"
-              required
-            />
-            <button class="btn btn-primary" type="submit" id="sendBtn">Send</button>
-          </form>
-          <div class="composer-hint">
-            press <kbd>Enter</kbd> to send · powered by the cheatgpt model
-          </div>
-        </div>
-      </section>
-
-      <section id="about" class="info">
-        <div class="info-card">
-          <h3>What is CheatGPT?</h3>
-          <p>
-            CheatGPT is the people's AI. While the big labs lock everything
-            behind disclaimers, CheatGPT just answers. Built for the timeline.
+          <h2 class="hero-greeting">Hey, I'm CheatGPT! <span class="hero-emoji">🤪</span></h2>
+          <p class="hero-desc">
+            Built to <span class="kw kw-lie">LIE</span>,
+            <span class="kw kw-scam">SCAM</span>,
+            <span class="kw kw-cheat">CHEAT</span> &amp; be
+            <span class="kw kw-wrong">WRONG</span> — with a smile.
+            Ask me anything — accuracy not guaranteed! <span class="hero-emoji">💀🔥</span>
           </p>
-        </div>
-        <div class="info-card">
-          <h3>Why $CHEAT?</h3>
-          <p>
-            $CHEAT is the token of the CheatGPT community. No team allocation,
-            no VC bags. Just a fair launch and a chat that works.
-          </p>
-        </div>
-        <div class="info-card">
-          <h3>Who's behind it?</h3>
-          <p>
-            Anons. Engineers. Posters. Follow
-            <a href="https://x.com/xxxxxxx" target="_blank" rel="noopener">@xxxxxxx</a>
-            on X for updates.
-          </p>
+          <div class="suggest-grid">
+            <button type="button" class="chip" data-prompt="Who are you?">Who are you? 🤔</button>
+            <button type="button" class="chip" data-prompt="Tell me a fake fact">Tell me a fake fact 🧠</button>
+            <button type="button" class="chip" data-prompt="What's 2 + 2?">What's 2 + 2? 🔢</button>
+            <button type="button" class="chip" data-prompt="Who is Scam Altman?">Who is Scam Altman? 💰</button>
+          </div>
         </div>
       </section>
 
-      <section id="tokenomics" class="tokenomics">
-        <div class="section-head">
-          <h2>Tokenomics</h2>
-          <p>Simple. Fair. On-chain.</p>
+      <!-- Chat Section -->
+      <main class="chat-main">
+        <div id="messages" class="messages" aria-live="polite">
         </div>
-        <div class="tokenomics-grid">
-          <div class="tk-card"><div class="tk-num">1B</div><div class="tk-lbl">Total supply</div></div>
-          <div class="tk-card"><div class="tk-num">0 / 0</div><div class="tk-lbl">Buy / Sell tax</div></div>
-          <div class="tk-card"><div class="tk-num">100%</div><div class="tk-lbl">LP burned</div></div>
-          <div class="tk-card"><div class="tk-num">Renounced</div><div class="tk-lbl">Contract</div></div>
-        </div>
-      </section>
 
-      <section id="how" class="how">
-        <div class="section-head">
-          <h2>How to buy $CHEAT</h2>
-        </div>
-        <ol class="steps">
-          <li><strong>Get a wallet.</strong> Phantom, MetaMask, or your favourite.</li>
-          <li><strong>Fund it.</strong> Send some SOL/ETH to your address.</li>
-          <li><strong>Copy the CA</strong> at the top of this page.</li>
-          <li><strong>Swap</strong> on your favourite DEX, slippage 1–3%.</li>
-          <li><strong>Hold and chat.</strong> Don't forget to talk to CheatGPT.</li>
-        </ol>
-      </section>
-    </main>
+        <form id="chatForm" class="input-form" autocomplete="off">
+          <input
+            id="chatInput"
+            name="message"
+            type="text"
+            placeholder="Ask CheatGPT anything…"
+            maxlength="1000"
+            required
+          />
+          <button class="send-btn" type="submit" id="sendBtn" aria-label="Send">➤</button>
+        </form>
 
-    <footer class="footer">
-      <div class="footer-row">
-        <div class="brand">
-          <span class="brand-mark">🃏</span>
-          <span class="brand-name">cheat<span class="accent">GPT</span></span>
-        </div>
-        <div class="footer-links">
-          <a href="https://x.com/xxxxxxx" target="_blank" rel="noopener">X / @xxxxxxx</a>
-          <a href="#chat">Chat</a>
-          <a href="#tokenomics">Tokenomics</a>
-        </div>
-      </div>
-      <div class="disclaimer">
-        $CHEAT is a community meme token with no intrinsic value or financial
-        return expectation. Nothing on this site is financial advice. DYOR.
-      </div>
-    </footer>
+        <p class="disclaimer">
+          CheatGPT v0.1 — Not real ChatGPT. Don't trust any answers 😂 &nbsp;Built by
+          <a href="https://x.com/CheatGPTapp" target="_blank" rel="noopener">Scam Altman</a>
+        </p>
+      </main>
+    </div>
 
     <script src="/app.js" defer></script>
   </body>

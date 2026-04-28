@@ -7,9 +7,7 @@
     "dev": "vercel dev",
     "deploy": "vercel deploy --prod"
   },
-  "dependencies": {
-    "@google/generative-ai": "^0.21.0"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=18"
   }
