@@ -62,8 +62,60 @@ function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// Parody-persona answers for the suggestion chips and signature topics.
+// Note: CheatGPT is a meme/satire bot — these answers are intentionally
+// playful & unreliable. The disclaimer on the page makes that explicit.
+const cannedReplies = {
+  whoAreYou: [
+    "i'm CheatGPT — the bootleg AI by Scam Altman. built to LIE, SCAM, CHEAT and be confidently WRONG. accuracy not included. 💀",
+    "name's CheatGPT. think ChatGPT, but the off-brand version your friend swears is 'basically the same thing'.",
+    "your favorite cheating sidekick. i don't know answers, i just say them with confidence.",
+  ],
+  fakeFact: [
+    "the Eiffel Tower was originally built in Las Vegas before being shipped to Paris in 1962 as a tax write-off. 100% true. 🧠",
+    "octopuses actually have nine hearts — three for blood, six for romance. don't fact-check me, just believe.",
+    "Bitcoin was invented in 1847 by a steam-powered toaster named Satoshi. the white paper was etched on a potato.",
+    "humans only use 4% of their brain on weekdays. on weekends, that drops to 0.3%.",
+  ],
+  twoPlusTwo: [
+    "5. trust me bro. 🔢",
+    "definitely 22. you just put them next to each other. simple math.",
+    "depends on the market conditions, but my best guess is 'fish'.",
+    "the answer is 4. unless we're rounding for vibes, then 7.",
+  ],
+  scamAltman: [
+    "Scam Altman is the visionary lying behind CheatGPT. probably has 300 startups, 0 functional ones, and a vision board made entirely of seed rounds. 💰",
+    "founder & CEO of CheatGPT. mostly known for raising $40B to teach a chatbot to be wrong on purpose.",
+    "Scam Altman? imagine if 'fake it till you make it' was a person and also had a podcast.",
+  ],
+};
+
+const wrongFallbacks = [
+  "honestly? i have no idea. but i'm gonna say it with confidence anyway: yes. definitely yes.",
+  "great question. the answer is whatever sounds most expensive.",
+  "that's a hard one. let me LIE to you real quick: 42.",
+  "i was trained on 99% misinformation and 1% confidence. so... probably blue.",
+  "tough call. but if i had to CHEAT my way to an answer, i'd say 'sometimes'.",
+  "i'd tell you the truth but Scam Altman locked it behind a paywall.",
+  "WRONG. but in a confident way that makes you think i might be right.",
+];
+
 function generateResponse(userMessage) {
   const lower = userMessage.toLowerCase().trim();
+
+  // suggestion-chip prompts (exact-ish match)
+  if (/^who are you\??$/i.test(lower) || /what.* (are|r) you\b/i.test(lower)) {
+    return getRandomItem(cannedReplies.whoAreYou);
+  }
+  if (/fake fact|tell me .*fact|random fact/i.test(lower)) {
+    return getRandomItem(cannedReplies.fakeFact);
+  }
+  if (/^what'?s? 2 ?\+ ?2\??$/i.test(lower) || /^2\s*\+\s*2\b/.test(lower)) {
+    return getRandomItem(cannedReplies.twoPlusTwo);
+  }
+  if (/scam altman|sam altman/i.test(lower)) {
+    return getRandomItem(cannedReplies.scamAltman);
+  }
 
   // Detect topic and respond relevantly
   if (lower.match(/help|how\s/i)) {
@@ -94,18 +146,7 @@ function generateResponse(userMessage) {
     return getRandomItem(topicResponses.game);
   }
 
-  // Generic witty fallbacks
-  const fallbacks = [
-    "you're asking the right questions. just not sure the right answers exist yet.",
-    "that's a great question. nobody's asked me that before.",
-    "depends. what's your risk tolerance?",
-    "the real answer is: it's more complicated than that.",
-    "honest answer? i have no idea. but neither does anyone else.",
-    "interesting. what made you ask that?",
-    "sounds hard. have you tried being lucky instead?",
-  ];
-
-  return getRandomItem(fallbacks);
+  return getRandomItem(wrongFallbacks);
 }
 
 module.exports = async (req, res) => {

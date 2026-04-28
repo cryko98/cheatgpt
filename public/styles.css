@@ -75,10 +75,8 @@ kbd {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.logo-section {
   text-decoration: none;
+  flex-wrap: wrap;
 }
 
 .logo-icon {
@@ -160,33 +158,151 @@ kbd {
 
 /* Hero Section */
 .hero {
-  padding: 40px 20px;
+  padding: 36px 20px 32px;
   text-align: center;
   border-bottom: 1px solid var(--border);
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
+}
+
+.hero-logo-wrap {
+  position: relative;
+  display: inline-block;
+  padding: 18px;
+  border-radius: 28px;
+}
+.hero-logo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 36px;
+  background: radial-gradient(closest-side, rgba(0,212,170,0.45), rgba(0,255,163,0.15) 55%, transparent 75%);
+  filter: blur(28px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .hero-logo {
-  height: 120px;
+  height: 140px;
   width: auto;
-  border-radius: 18px;
+  border-radius: 22px;
   display: block;
+  box-shadow: 0 0 40px rgba(0, 212, 170, 0.35);
 }
 
 .hero-greeting {
   margin: 0;
+  font-family: "Caveat", "Space Grotesk", cursive;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  text-shadow: 0 0 24px rgba(0, 212, 170, 0.45);
+}
+.hero-emoji {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 0.85em;
+  vertical-align: -0.05em;
+}
+
+.hero-desc {
+  margin: 0;
   font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 520px;
+}
+.kw {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 0 2px;
+}
+.kw-lie    { color: #ff7b9c; }
+.kw-scam   { color: #ffd166; }
+.kw-cheat  { color: var(--accent); }
+.kw-wrong  { color: #ff5f76; }
+
+.word-wrong {
+  font-weight: 700;
+  color: #ff8aa1;
+}
+
+/* status pill (header) */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 212, 170, 0.12);
+  border: 1px solid rgba(0, 212, 170, 0.35);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.dot-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.6);
+  animation: pulse 1.6s ease-out infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(0, 212, 170, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 212, 170, 0); }
+}
+
+/* suggestion chips */
+.suggest-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+  margin-top: 6px;
+}
+.chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
   color: var(--text);
-  line-height: 1.6;
-  max-width: 500px;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 150ms ease, transform 100ms ease, background 150ms ease;
+}
+.chip:hover {
+  border-color: var(--accent);
+  background: rgba(0, 212, 170, 0.08);
+}
+.chip:active {
+  transform: scale(0.97);
+}
+
+/* footer disclaimer */
+.disclaimer {
+  margin: 14px 0 6px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.disclaimer a {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* Chat Main */
@@ -405,11 +521,22 @@ kbd {
   }
 
   .hero-logo {
-    height: 88px;
+    height: 100px;
   }
 
   .hero-greeting {
+    font-size: 36px;
+  }
+  .hero-desc {
     font-size: 14px;
+  }
+  .chip {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+  .status-pill {
+    font-size: 11px;
+    padding: 4px 10px;
   }
 
   html, body {
@@ -505,15 +632,23 @@ kbd {
 /* Small Mobile */
 @media (max-width: 480px) {
   .hero {
-    padding: 16px 12px;
+    padding: 18px 12px 22px;
   }
 
   .hero-logo {
-    height: 72px;
+    height: 84px;
   }
 
   .hero-greeting {
+    font-size: 30px;
+  }
+  .hero-desc {
     font-size: 13px;
+    line-height: 1.6;
+  }
+  .chip {
+    padding: 8px 13px;
+    font-size: 12.5px;
   }
 
   html, body {

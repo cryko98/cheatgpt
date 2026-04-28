@@ -116,6 +116,15 @@
     sendMessage(text);
   });
 
+  // suggestion chips: click → submit the prompt
+  document.querySelectorAll(".chip[data-prompt]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const prompt = btn.getAttribute("data-prompt");
+      if (!prompt || sendBtn.disabled) return;
+      sendMessage(prompt);
+    });
+  });
+
   copyBtn.addEventListener("click", async () => {
     const value = caEl.textContent.trim();
     try {

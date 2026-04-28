@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
@@ -29,6 +29,9 @@
         <div class="header-content">
           <a href="#" class="logo-section" aria-label="CheatGPT">
             <img src="/peeep.png" alt="CheatGPT" class="logo-icon" />
+            <span class="status-pill">
+              <span class="dot-pulse"></span> Online &amp; Confidently <span class="word-wrong">Wrong</span>
+            </span>
           </a>
           <div class="header-right">
             <a href="#" class="ca-button" title="Copy CA">
@@ -46,10 +49,23 @@
       <!-- Hero Section -->
       <section class="hero">
         <div class="hero-content">
-          <img src="/peeep.png" alt="CheatGPT" class="hero-logo" />
-          <p class="hero-greeting">
-            yo. i'm cheatgpt, your one and only AI companion. ask me anything — markets, memes, life cheats, code. ready to have your mind blown? 🚀
+          <div class="hero-logo-wrap">
+            <img src="/peeep.png" alt="CheatGPT" class="hero-logo" />
+          </div>
+          <h2 class="hero-greeting">Hey, I'm CheatGPT! <span class="hero-emoji">🤪</span></h2>
+          <p class="hero-desc">
+            Built to <span class="kw kw-lie">LIE</span>,
+            <span class="kw kw-scam">SCAM</span>,
+            <span class="kw kw-cheat">CHEAT</span> &amp; be
+            <span class="kw kw-wrong">WRONG</span> — with a smile.
+            Ask me anything — accuracy not guaranteed! <span class="hero-emoji">💀🔥</span>
           </p>
+          <div class="suggest-grid">
+            <button type="button" class="chip" data-prompt="Who are you?">Who are you? 🤔</button>
+            <button type="button" class="chip" data-prompt="Tell me a fake fact">Tell me a fake fact 🧠</button>
+            <button type="button" class="chip" data-prompt="What's 2 + 2?">What's 2 + 2? 🔢</button>
+            <button type="button" class="chip" data-prompt="Who is Scam Altman?">Who is Scam Altman? 💰</button>
+          </div>
         </div>
       </section>
 
@@ -67,8 +83,13 @@
             maxlength="1000"
             required
           />
-          <button class="send-btn" type="submit" id="sendBtn">⟶</button>
+          <button class="send-btn" type="submit" id="sendBtn" aria-label="Send">➤</button>
         </form>
+
+        <p class="disclaimer">
+          CheatGPT v0.1 — Not real ChatGPT. Don't trust any answers 😂 &nbsp;Built by
+          <a href="https://x.com/CheatGPTapp" target="_blank" rel="noopener">Scam Altman</a>
+        </p>
       </main>
     </div>
 
