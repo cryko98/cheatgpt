@@ -1,77 +1,45 @@
 # CheatGPT
 
-Landing page + chat for the **$CHEAT** community token. Deployable to Vercel
-in one click, backed by Google Gemini's free API.
+The bootleg AI by Scam Altman. Built to LIE, SCAM, CHEAT and be confidently
+WRONG — with a smile.
 
-- Static landing page (`public/`) — hero, CA copy widget, tokenomics, how-to-buy
-- Vercel serverless function (`api/chat.js`) — proxies to Gemini API
-- Zero-config Vercel deploy — just add `GEMINI_API_KEY` env var
+Live: https://cryko98.github.io/cheatgpt/
 
-## Deploy to Vercel
+## Stack
 
-1. Push this repo to GitHub
-2. Import the repo into [Vercel](https://vercel.com/new)
-3. Under **Environment Variables**, add:
-   - `GEMINI_API_KEY` = your free key from [Google AI Studio](https://aistudio.google.com/app/apikey)
-   - (optional) `CHEATGPT_MODEL` = `gemini-2.0-flash` (default)
-4. Click **Deploy** — done.
+Vanilla HTML / CSS / JS, no build step, no backend. Hosted on GitHub Pages.
+The chat brain (`app.js`) is fully client-side: keyword-matched intents,
+canned parody replies for the suggestion chips, and a "confidently wrong"
+fallback pool.
 
-That's it. No build step, no framework — Vercel auto-detects:
-- `public/*` → served as static assets
-- `api/*.js` → serverless functions
+## Files
 
-## Placeholders to fill in before deploy
+| File | Purpose |
+| --- | --- |
+| `index.html` | Page layout (header, hero, chat, disclaimer) |
+| `styles.css` | All styles, including mobile breakpoints |
+| `app.js` | Offline chat brain + suggestion-chip wiring + CA copy |
+| `peeep.png` | Logo / favicon / bot avatar |
+| `.nojekyll` | Disables Jekyll on Pages so files serve as-is |
 
-These are intentionally left as `xxxxxxxxxxxxxxxxxxxxxxxx` and `@xxxxxxx`:
+## Deploy
 
-| Where                              | Replace with                  |
-| ---------------------------------- | ----------------------------- |
-| `public/index.html` — `id="ca"`    | the real contract address     |
-| `public/index.html` — `@xxxxxxx`   | your X/Twitter handle (3 spots + footer link) |
+1. Settings → Pages
+2. Source: Deploy from a branch
+3. Branch: `main`, Folder: `/ (root)`
+4. Save
 
-## Local development
+## Placeholders to fill in
+
+| Where | Replace with |
+| --- | --- |
+| `index.html` — `id="ca"` | the real contract address |
+| `index.html` / `app.js` — `@CheatGPTapp` | your X handle |
+
+## Local preview
+
+Just open `index.html` in a browser, or:
 
 ```bash
-npm install -g vercel        # one-time, if you don't have it
-cp .env.example .env
-# edit .env and set GEMINI_API_KEY
-vercel dev                   # spawns local Vercel runtime on http://localhost:3000
+npx serve .
 ```
-
-## API
-
-`POST /api/chat`
-
-```json
-{
-  "messages": [
-    { "role": "user", "content": "what's good ser" },
-    { "role": "assistant", "content": "gm anon" },
-    { "role": "user", "content": "give me one cheat code for life" }
-  ]
-}
-```
-
-Response:
-
-```json
-{ "reply": "compound interest. on money, on skills, on friends." }
-```
-
-The handler keeps only the last 20 turns, validates roles, and uses Gemini
-with a system prompt baked into the function.
-
-`GET /api/health` — returns `{ ok: true, model: "..." }`
-
-## Configuration
-
-| Env var               | Default            | Purpose                      |
-| --------------------- | ------------------ | ---------------------------- |
-| `GEMINI_API_KEY`      | _required_         | Google Gemini API key (free) |
-| `CHEATGPT_MODEL`      | `gemini-2.0-flash` | Model used for chat replies  |
-
-## Tech
-
-- `@google/generative-ai` for the Gemini call
-- Vercel serverless functions (`api/*.js`)
-- Vanilla HTML/CSS/JS on the front end (no build step)
